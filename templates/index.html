@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block right_box %}
+<div class="right-box">
+    <div class="ibox-title">
+        <h5>Asset List</h5>
+        <button class="hide ajax_test">ajax_test</button> <!--Ajax_test-->
+        <div class="search-box">
+            <form action="/bms/index/" method="get">
+            <div class="row">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for..." name="search_string">
+                    <span class="input-group-btn">
+                        <button id="search_icon" class="btn btn-default" type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div><!-- /input-group -->
+            </div><!-- /.row -->
+            </form>
+        </div>
+    </div>
+
+    <div class="ibox-content">
+        <div class="btn-div">
+            <a href="/bms/creat_asset/">
+                <button class="btn btn-success" id="creat"> 创建资产 </button>
+            </a>
+            <button class="btn btn-danger" id="del"> 批量删除 </button>
+        </div>
+        <table class="table table-striped">
+            <tr class="top_tr">
+                <th><input class="text-center ipt_check"  type="checkbox"></th>
+                <th class="hide">ID</th>
+                <th>主机名</th>
+                <th>IP</th>
+                <th>端口</th>
+                <th>类型</th>
+                <th>环境</th>
+                <th>硬件</th>
+                <th>业务线</th>
+                <th>动作</th>
+            </tr>
+            {% for Asset in all_asset_list %}
+                <tr class="odd" role="row">
+                    <td class=" text-center">
+                        <input class="text-center ipt_check"  type="checkbox">
+                    </td>
+                    <td class=" text-center hide asset_id">{{ Asset.id }}</td>
+                    <td class=" text-center var">{{ Asset.hostname }}</td>
+                    <td class=" text-center var"><a id="terminal_event" href="/bms/applications/terminal/" target="_blank">{{ Asset.ip }}</a></td>
+                    <td class=" text-center var">{{ Asset.port }}</td>
+                    <td class=" text-center var">{{ Asset.model }}</td>
+                    <td class=" text-center var">{{ Asset.env }}</td>
+                    <td class=" text-center var">{{ Asset.hardware }}</td>
+                    <td class=" text-center var">
+                        {{ Asset.bussiness }}
+{#                        {% for user in Asset.users.values %} {# 显示主机对应的管理员 #}
+{#                                {{ user.username }}#}
+{#                        {% endfor %}#}
+                    </td>
+                    <td class=" text-center">
+                        <a class="btn_asset_update">更新</a>
+                        <a class="btn_asset_delete" assetid={{ Asset.id }}>删除</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3" style="text-align: center">
+            <ul class="pagination">
+                {{ page_str | safe }}
+                <!--注释部分为利用Paginator实现的分页-->
+                <!--    <li>
+                    <a href="/bms/index/?search_string={{ search_str }}">首页</a>
+                </li>
+
+                <li>
+                    {% if all_asset_list.has_previous %}
+                        <a href="/bms/index/?page_num={{ all_asset_list.previous_page_number }}&search_string={{ search_str }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    {% else %}
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    {% endif %}
+                </li>
+
+                {% for page_num in now_page_range %}
+                    <li><a href="/bms/index/?page_num={{ page_num }}&search_string={{ search_str }}">{{ page_num }}</a></li>
+                {% endfor %}
+
+                <li>
+                    {% if all_asset_list.has_next %}
+                        <a href="/bms/index/?page_num={{ all_asset_list.next_page_number }}&search_string={{ search_str }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    {% else %}
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    {% endif %}
+                </li>
+
+                <li>
+                    <a href="/bms/index/?page_num={{ p.num_pages }}&search_string={{ search_str }}">尾页</a>
+                </li>-->
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

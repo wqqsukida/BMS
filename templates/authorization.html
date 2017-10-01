@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block mod_user %}
+    <div class="mod_bussiness hide">
+            <div class="cancel" id="b-cancel-1">X</div>
+            <form class="input-box" novalidate>
+                <div class="input-info">
+                    <p>用户名：</p>
+{#                    {{ form.hostname }}#}
+                    {{ b_form.name }}
+{#                    <input type="text" placeholder="" name="username">#}
+                </div>
+                <div class="input-info">
+                    <p>描述信息：</p>
+                    {{ b_form.description }}
+                </div>
+                <div class="btn btn-default create-btn-1" id="b-cancel-2">返回</div>
+                <div type="button"  class="btn btn-success create-btn-1" id="mod_bussiness_btn">更新</div>
+
+            </form>
+        </div>
+{% endblock %}
+
+{% block del_user %}
+    <div class="hide del-bussiness">
+        <h2 ><span class="glyphicon glyphicon-exclamation-sign"></span>你确定吗？</h2>
+        <p>删除所选业务线信息</p>
+        <button class="btn btn-default">Cancel</button>
+        <span>or</span>
+        <button class="btn btn-danger">确定</button>
+    </div>
+{% endblock %}
+
+{% block right_box %}
+    <div class="right-box">
+
+            <div class="ibox-title">
+                <h5>业务线</h5>
+                <div class="search-box">
+                    <form action="/bms/authorization/1/" method="get">
+                    <div class="row">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for..." name="search_string">
+                            <span class="input-group-btn">
+                                <button id="search_icon" class="btn btn-default" type="submit">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </div><!-- /.row -->
+                    </form>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="btn-div">
+                    <a href="/bms/creat-bl/">
+                        <button class="btn btn-success" id="creat"> 新增业务线 </button>
+                    </a>
+                    <button class="btn btn-danger" id="del"> 批量删除 </button>
+                </div>
+                <table class="table table-striped">
+                    <tr class="top_tr">
+                        <th><input class="text-center ipt_check"  type="checkbox"></th>
+                        <th class="hide">ID</th>
+                        <th>业务线</th>
+                        <th>描述</th>
+                        <th>关联用户</th>
+                        <th>动作</th>
+                    </tr>
+                    {% for bussiness_obj in all_bussiness_list %}
+                        <tr class="odd" role="row">
+                            <td class=" text-center">
+                                <input class="text-center ipt_check"  type="checkbox">
+                            </td>
+                            <td class=" text-center hide asset_id">{{ bussiness_obj.id }}</td>
+                            <td class=" text-center var">{{ bussiness_obj.name }}</td>
+                            <td class=" text-center var">{{ bussiness_obj.description }}</td>
+                            <td class=" text-center var">
+                                <!--{{ b.userinfo_set.values }}-->
+                                <!--获取业务线绑定的用户对象-->
+                                {% for user_obj in bussiness_obj.userinfo_set.values  %}
+                                        {{ user_obj.username }}
+                                {% endfor %}
+                            </td>
+                            <td class=" text-center">
+                                <a class="btn_bussiness_update">管理</a>
+                                <a class="btn_bussiness_delete" bid={{ b.id }}>删除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3" style="text-align: center">
+                    <ul class="pagination">
+                        {{ page_str | safe }}
+                        <!--注释部分为利用Paginator实现的分页-->
+                        <!--    <li>
+                            <a href="/bms/index/?search_string={{ search_str }}">首页</a>
+                        </li>
+
+                        <li>
+                            {% if all_asset_list.has_previous %}
+                                <a href="/bms/index/?page_num={{ all_asset_list.previous_page_number }}&search_string={{ search_str }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            {% else %}
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            {% endif %}
+                        </li>
+
+                        {% for page_num in now_page_range %}
+                            <li><a href="/bms/index/?page_num={{ page_num }}&search_string={{ search_str }}">{{ page_num }}</a></li>
+                        {% endfor %}
+
+                        <li>
+                            {% if all_asset_list.has_next %}
+                                <a href="/bms/index/?page_num={{ all_asset_list.next_page_number }}&search_string={{ search_str }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            {% else %}
+                                <a href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            {% endif %}
+                        </li>
+
+                        <li>
+                            <a href="/bms/index/?page_num={{ p.num_pages }}&search_string={{ search_str }}">尾页</a>
+                        </li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+{% block js_box %}
+    <script src="{% static "js/authorization.js" %}"></script>
+{% endblock %}

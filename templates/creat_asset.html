@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block right_box %}
+<form action="/bms/creat_asset/" method="post" novalidate>{% csrf_token %}
+            <div class="creat_model">
+                <div class="input-outer">
+
+                    <div class="input-info">
+                        <p>主机名：</p>
+                        {{ form.hostname }}
+                        <span class="error_span">{{ form.hostname.errors.0 }}</span>
+                        <!--<input type="text" placeholder="" name="hostname">-->
+                    </div>
+                    <div class="input-info">
+                        <p>IP：</p>
+                        {{ form.ip }}
+                        <span class="error_span">{{ form.ip.errors.0 }}</span>
+                        <!--<input type="text" placeholder="" name="ip">-->
+                    </div>
+                    <div class="input-info">
+                        <p>端口：</p>
+                        {{ form.port }}
+                        <span class="error_span">{{ form.port.errors.0 }}</span>
+                        <!--<input type="text" placeholder="" name="port">-->
+                    </div>
+                    <div class="input-info">
+                        <p>类型：</p>
+                        {{ form.model }}
+                        <span class="error_span">{{ form.model.errors.0 }}</span>
+                        <!--<input type="text" placeholder="" name="model">-->
+                    </div>
+                    <div class="input-info">
+                        <p>环境：</p>
+                        {{ form.env_id }}
+                        <span class="error_span">{{ form.env_id.errors.0 }}</span>
+                        <!--<select    name="env" >
+                            {% for env in all_env %}
+                                <option value={{ env.0 }}>{{ env.0 }}</option>
+                            {% endfor %}
+                        </select>-->
+                    </div>
+                    <div class="input-info">
+                        <p>硬件：</p>
+                        {{ form.hardware }}
+                        <span class="error_span">{{ form.hardware.errors.0 }}</span>
+                        <!--<input type="text" placeholder="" name="hardware">-->
+                    </div>
+                    <div class="input-info">
+                        <p>业务线：</p>
+                        {{ form.bussiness_id }}
+                        <span class="error_span">{{ form.bussiness_id.errors.0 }}</span>
+                        <!--<select multiple="multiple"   name="admin" >
+                            {% for user in all_users %}
+                                {% if user.0 != 'admin' %}
+                                    <option value={{ user.0 }}>{{ user.0 }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>-->
+                    </div>
+                    <a href="/bms/index/"><div class="btn btn-default creat-btn" id="create-btn">返回</div></a>
+                    <button type="submit" class="btn btn-success creat-btn" id="create-btn">提交</button>
+
+                </div>
+            </div>
+</form>
+{% endblock %}
+

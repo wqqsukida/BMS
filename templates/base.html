@@ -1,0 +1,125 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="{% static "dist/css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "css/index.css" %}">
+    <style>
+        body{
+            background-image: url("{% static "img/20141015103134_32469.jpg" %}");
+            background-repeat:no-repeat;
+            background-size: 100%;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="shade hide"></div>
+    <div>
+        <div class="update hide">
+            <div class="cancel" id="cancel-1">X</div>
+            <form class="input-box">
+                <div class="input-info">
+                    <p>主机名：</p>
+                    {{ form.hostname }}
+{#                    <input type="text" placeholder="" name="hostname">#}
+                </div>
+                <div class="input-info">
+                    <p>IP：</p>
+                    <input type="text" placeholder="" name="ip">
+                </div>
+                <div class="input-info">
+                    <p>端口：</p>
+                    <input type="text" placeholder="" name="port">
+                </div>
+                <div class="input-info">
+                    <p>类型：</p>
+                    <input type="text" placeholder="" name="model">
+                </div>
+                <div class="input-info">
+                    <p>环境：</p>
+                    {{ form.env_id }}
+                    <!--<select    name="env_id" >
+                        {% for env in all_env %}
+                            <option value={{ env.0 }}>{{ env.0 }}</option>
+                        {% endfor %}
+                    </select>-->
+                </div>
+                <div class="input-info">
+                    <p>硬件：</p>
+                    <input type="text" placeholder="" name="hardware">
+                </div>
+                <div class="input-info">
+                    <p>业务线：</p>
+                    {{ form.bussiness_id }}
+                    <!--<select multiple="multiple"   name="user_id" >
+                        {% for user in all_users %}
+                            {% if user.0 != 'admin' %}   {# 更改管理员不显示admin用户 #}
+                                <option value={{ user.0 }}>{{ user.0 }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>-->
+                </div>
+                <div class="btn btn-default create-btn-1" id="cancel-2">返回</div>
+                <div type="button"  class="btn btn-success create-btn-1" id="create-btn-1">更新</div>
+
+            </form>
+        </div>
+    </div>
+    <div>
+        {% block mod_user %}
+        {% endblock %}
+    </div>
+    <div>
+        <div class="hide del-box">
+
+            <h2><span class="glyphicon glyphicon-exclamation-sign"></span>你确定吗？</h2>
+            <p>删除所选主机信息</p>
+            <button class="btn btn-default">Cancel</button>
+            <span>or</span>
+            <button class="btn btn-danger">确定</button>
+        </div>
+    </div>
+    <div>
+        {% block del_user %}
+        {% endblock %}
+    </div>
+    <div class="left-menu">
+
+        <ul>
+            <li class="left-menu-header"><a href="">Welcome {{ username }}!</a></li>
+            <li class="left-menu-content"><a href="">仪表盘</a></li>
+            <li class="left-menu-content"><a href="/bms/users/1/">用户管理</a></li>
+            <li class="left-menu-content"><a href="/bms/index/">资产管理</a></li>
+            <li class="left-menu-content"><a href="/bms/authorization/1/">权限管理</a></li>
+            <li class="left-menu-content"><a href="">应用程序</a></li>
+            <li class="left-menu-content"><a href="">作业中心</a></li>
+            <li class="left-menu-content"><a href="">审计</a></li>
+            <li class="left-menu-content"><a href="">访问官网</a></li>
+        </ul>
+    </div>
+    <div class="right-top-menu">
+            <ul>
+                <li><span class="welcome_msg">欢迎使用主机管理系统</span></li>
+                <li><a href="">帮助</a></li>
+                <li><a href="/bms/logout/">注销登录</a></li>
+            </ul>
+        </div>
+    <div class="right-top-menu">
+
+        </div>
+    <div class="right-outer-box">
+        {% block right_box %}
+        {% endblock %}
+    </div>
+</body>
+<script src="{% static "dist/js/jquery-3.1.1.js" %}"></script>
+<script src="{% static "js/jquery.cookie.js" %}"></script>
+<script src="{% static "dist/js/bootstrap.js" %}"></script>
+<script src="{% static "js/index.js" %}"></script>
+{% block js_box %}
+{% endblock %}
+</html>
