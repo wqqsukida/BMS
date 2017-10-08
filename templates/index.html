@@ -22,7 +22,7 @@
 
     <div class="ibox-content">
         <div class="btn-div">
-            <a href="/bms/creat_asset/">
+            <a href="/bms/creat_asset/?{{ url_param }}">
                 <button class="btn btn-success" id="creat"> 创建资产 </button>
             </a>
             <button class="btn btn-danger" id="del"> 批量删除 </button>
@@ -46,8 +46,16 @@
                         <input class="text-center ipt_check"  type="checkbox">
                     </td>
                     <td class=" text-center hide asset_id">{{ Asset.id }}</td>
-                    <td class=" text-center var">{{ Asset.hostname }}</td>
-                    <td class=" text-center var"><a id="terminal_event" href="/bms/applications/terminal/" target="_blank">{{ Asset.ip }}</a></td>
+                    <td class=" text-center var">
+                        <a href="/bms/asset_detail/?AssetID={{ Asset.id }}&{{ url_param }}" title="Asset Detail">
+                            {{ Asset.hostname }}
+                        </a>
+                    </td>
+                    <td class=" text-center var">
+                        <a id="terminal_event" href="/bms/applications/terminal/" title="Web Terminal" target="_blank">
+                            {{ Asset.ip }}
+                        </a>
+                    </td>
                     <td class=" text-center var">{{ Asset.port }}</td>
                     <td class=" text-center var">{{ Asset.model }}</td>
                     <td class=" text-center var">{{ Asset.env }}</td>

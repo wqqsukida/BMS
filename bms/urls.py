@@ -25,4 +25,6 @@ urlpatterns = [
     url(r'^bulkcreate/', views.bulk_create_models),
     url(r'^ajax/', views.do_ajax),
     url(r'^applications/terminal/', views.web_terminal),
+    url(r'^asset_detail/', views.asset_detail),
+    url(r'^Get_AssetInfo/', views.Get_AssetInfo),
 ]

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block right_box %}
-<form action="/bms/creat_asset/" method="post" novalidate>{% csrf_token %}
+<form  method="post" novalidate>{% csrf_token %} <!--跳转原页面时，form不能设置action,默认post至当前页-->
             <div class="creat_model">
                 <div class="input-outer">
 
@@ -56,7 +56,7 @@
                             {% endfor %}
                         </select>-->
                     </div>
-                    <a href="/bms/index/"><div class="btn btn-default creat-btn" id="create-btn">返回</div></a>
+                    <a href="/bms/index/?{{ url_param }}"><div class="btn btn-default creat-btn" id="create-btn">返回</div></a>
                     <button type="submit" class="btn btn-success creat-btn" id="create-btn">提交</button>
 
                 </div>

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block right_box %}
+    <div class="right-box" style="width: 45%">
+            <div class="ibox-title">
+                <h5>Asset Detail</h5>
+                <a href="/bms/index/?{{ url_param }}">
+                    <button style="float: right;margin: 10px" type="button" class="btn btn-warning" >返回</button>
+                </a>
+                <button class="hide ajax_test">ajax_test</button> <!--Ajax_test-->
+                <!--<div class="search-box">
+                    <form action="/bms/users/1/" method="get">
+                    <div class="row">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for..." name="search_string">
+                            <span class="input-group-btn">
+                                <button id="search_icon" class="btn btn-default" type="submit">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    </form>
+                </div>-->
+            </div>
+            <div class="ibox-content">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr class="odd" role="row">
+                            <td class="text-center" width="30%">Hostname:</td>
+                            <td class="text-center">{{ asset_obj.hostname }}</td>
+                        </tr>
+                        <tr class="odd" role="row">
+                            <td class="text-center" width="30%">IP:</td>
+                            <td class="text-center">{{ asset_obj.ip }}</td>
+                        </tr>
+                        <tr class="odd" role="row">
+                            <td class="text-center" width="30%">Product:</td>
+                            <td class="text-center">{{ asset_obj.product }}</td>
+                        </tr>
+                        <tr class="odd" role="row">
+                            <td class="text-center" width="30%">CPU:</td>
+                            <td class="text-center">{{ asset_obj.cpu_model }} * {{ asset_obj.cpu_num }}</td>
+                        </tr>
+                        <tr class="odd" role="row">
+                            <td class="text-center" width="30%">Memory:</td>
+                            <td class="text-center">{{ asset_obj.memory }}</td>
+                        </tr>
+                        <tr class="odd" role="row">
+                            <td class="text-center" width="30%">OS_version:</td>
+                            <td class="text-center">{{ asset_obj.osver }}</td>
+                        </tr>
+                        <tr class="odd" role="row">
+                            <td class="text-center" width="30%">SN:</td>
+                            <td class="text-center">{{ asset_obj.sn }}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+{% endblock %}

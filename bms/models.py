@@ -30,3 +30,15 @@ class Asset(models.Model):
     env=models.ForeignKey("Env") #外键关联Env
     hardware=models.CharField(max_length=32)
     bussiness=models.ForeignKey("BussinessLine")
+
+class AssetDetail(models.Model):
+    asset = models.OneToOneField(Asset) #可以把一对一理解为一种特殊的一对多（多的一方外键为Unique）
+    hostname = models.CharField(max_length=32,null=True)
+    memory = models.CharField(max_length=32,null=True)
+    cpu_model = models.CharField(max_length=32,null=True)
+    vender = models.CharField(max_length=32,null=True)
+    product = models.CharField(max_length=32,null=True)
+    sn = models.CharField(max_length=64,null=True)
+    osver = models.CharField(max_length=32,null=True)
+    cpu_num = models.CharField(max_length=10,null=True)
+    ip = models.CharField(max_length=32) 

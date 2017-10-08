@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.shortcuts import HttpResponse
 from django.db.models import Q
-from bms.models import Asset,UserInfo,Env,BussinessLine
+from bms.models import Asset,AssetDetail,UserInfo,Env,BussinessLine
 import json
 import paramiko
 from utils.md5 import encrypt
@@ -270,7 +270,17 @@ def index(request,user_dict):
     # print(p.page_range)
     #
     # print(all_asset_list)
+    # print(request.GET, type(request.GET))
+    # print(request.GET.urlencode())
 
+    from django.http.request import QueryDict
+
+    url_obj = QueryDict(mutable=True)
+    url_obj['_getarg'] = request.GET.urlencode()
+
+    # print(url_obj.urlencode())
+    url_param = url_obj.urlencode()
+    
     return render(request,'index.html',locals())
 
 #locals包含以下参数：
@@ -339,9 +349,11 @@ class CreatAssetForm(Form):
 
 @auth
 def creat_asset(request,user_dict):
+    url_param = request.GET.get('_getarg')
+    # print(url_param)
     if request.method == "GET":
         form = CreatAssetForm()
-        return render(request, 'creat_asset.html', {'form': form,'username':user_dict['user'],})
+        return render(request, 'creat_asset.html', {'form': form,'username':user_dict['user'],'url_param':url_param})
     else:
         form = CreatAssetForm(data=request.POST)
         if form.is_valid():
@@ -353,10 +365,12 @@ def creat_asset(request,user_dict):
             # user_id_list = form.cleaned_data.pop('user_id')  # [1,2,3]
             obj = Asset.objects.create(**form.cleaned_data)
             # obj.users.add(*user_id_list)
-            return redirect('/bms/index/')
+
+
+            return redirect('/bms/index/?'+url_param)
         else:
             print(form.errors)
-            return render(request, 'creat_asset.html', {'form': form,'username':user_dict['user'],})
+            return render(request, 'creat_asset.html', {'form': form,'username':user_dict['user'],'url_param':url_param})
 
 # @auth
 # def creat_asset(request,user_dict):
@@ -642,3 +656,34 @@ def authorization(request,user_dict,id):
         return HttpResponse(json.dumps(response))
     else:
         return render(request, 'users.html', locals())
+
+@auth
+def asset_detail(request,user_dict):
+    username = user_dict['user']
+    asset_id = request.GET.get('AssetID')
+    url_param = request.GET.get('_getarg')
+    print(asset_id,url_param)
+
+    asset_obj = AssetDetail.objects.filter(asset_id=asset_id).first()
+    
+
+    return render(request,'asset_detail.html',locals())
+
+from django.views.decorators.csrf import csrf_exempt,csrf_protect
+
+@csrf_exempt
+def Get_AssetInfo(request):
+    print(request.POST)
+    print(request.body.decode('utf-8'))
+    origin = request.body.decode('utf-8')
+    dic = json.loads(origin)
+    asset_obj = AssetDetail.objects.filter(ip=dic.get('ip'))
+    asset_id = Asset.objects.filter(ip=dic.get('ip')).first().value('id')
+    print(asset_id)
+    if asset_obj:
+        asset_obj.update(**dic)
+    else:
+        AssetDetail.objects.create(**dic,asset_id=asset_id)
+
+
+    return HttpResponse('POST GET!')

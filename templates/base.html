@@ -9,10 +9,38 @@
     <link rel="stylesheet" href="{% static "css/index.css" %}">
     <style>
         body{
-            background-image: url("{% static "img/20141015103134_32469.jpg" %}");
+            background-image: url("{% static "img/background_img/16363576.jpg" %}");
             background-repeat:no-repeat;
             background-size: 100%;
         }
+        html, body{height:100%;}
+        img{border:none;}
+        *{font-family:'微软雅黑';color:#626262;}
+        dl,dt,dd{display:block;margin:0;}
+        a{text-decoration:none;}
+
+        #bg{background-image:url("{% static "img/content/dotted.png" %}");}
+        .container{width:100%;height:100%;margin:auto;padding: 0}
+
+        /*left*/
+        .leftsidebar_box{width:200px;height:auto !important;overflow:visible !important;position:fixed;height:100% !important;background-color:#2f4050;}
+        .line{height:2px;width:100%;background-image:url("{% static "img/left/line_bg.png" %}");background-repeat:repeat-x;}
+        .leftsidebar_box dt,.system_log a,.statistics a{padding-left:40px;padding-right:10px;background-repeat:no-repeat;background-position:10px center;color:#f5f5f5;font-size:14px;position:relative;line-height:48px;cursor:pointer;font-weight: bold}
+        .leftsidebar_box dd{background-color:#2f4050;padding-left:40px;}
+        .leftsidebar_box dd:hover{background-color:#ec971f}
+        .leftsidebar_box dd a{color:#f5f5f5;line-height:20px;}
+        .leftsidebar_box dt img{position:absolute;right:10px;top:20px;}
+        .system_log a{background-image:url("{% static "img/left/statistics.png" %}")}
+        .custom dt{background-image:url("{% static "img/left/custom.png" %}")}
+        .channel dt{background-image:url("{% static "img/left/channel.png" %}")}
+        .app dt{background-image:url("{% static "img/left/app.png" %}")}
+        .cloud dt{background-image:url("{% static "img/left/cloud.png" %}")}
+        .syetem_management dt{background-image:url("{% static "img/left/syetem_management.png" %}")}
+        .source dt{background-image:url("{% static "img/left/source.png" %}")}
+        .statistics a{background-image:url("{% static "img/left/system.png" %}")}
+        .statistics{background-color:#ec971f }
+        .leftsidebar_box dl dd{padding-top:5px;padding-bottom:5px;}
+
     </style>
 
 </head>
@@ -87,9 +115,83 @@
         {% block del_user %}
         {% endblock %}
     </div>
+    <!--左侧菜单-->
     <div class="left-menu">
+        <div class="leftsidebar_box">
+            <!--用户信息-->
+            <div class="left-menu-header">
+                <span style="float: right">
+                    <img alt="image" class="img-circle" width="48" height="48" src="{% static "img/user_img/IMG_20161024_195840.jpg" %}">
+                </span>
+                <a style="font-size: 16px;font-weight: 800;color: white">Welcome!</a>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-warning btn-xs">{{ username }}</button>
+                  <button type="button" class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">用户信息</a></li>
+                    <li><a href="#">用户信息设置</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="/bms/logout/">注销登陆</a></li>
+                  </ul>
+                </div>
+            </div>
 
-        <ul>
+            <!--左侧菜单列表-->
+            <div class="system_log">
+                <a href="/bms/index/">仪表盘</a>
+            </div>
+
+            <dl class="custom">
+                <dt>用户管理<img></dt>
+                <dd><a href="/bms/users/1/">用户</a></dd>
+                <dd><a href="#">用户组</a></dd>
+            </dl>
+
+            <dl class="channel">
+                <dt>资产管理<img></dt>
+                <dd><a href="/bms/index/">资产主页</a></dd>
+                <dd><a href="#">资产组</a></dd>
+                <dd><a href="#">机房</a></dd>
+                <dd><a href="#">管理用户</a></dd>
+                <dd><a href="#">系统用户</a></dd>
+            </dl>
+
+            <dl class="app">
+                <dt>权限管理<img></dt>
+                <dd><a href="/bms/authorization/1/">业务线</a></dd>
+                <dd><a href="#">资产授权</a></dd>
+
+            </dl>
+
+            <dl class="cloud">
+                <dt>应用程序<img></dt>
+                <dd><a href="#">终端</a></dd>
+            </dl>
+
+            <dl class="syetem_management">
+                <dt>后台管理<img></dt>
+                <dd><a href="#">后台用户管理</a></dd>
+                <dd><a href="#">角色管理</a></dd>
+                <dd><a href="#">栏目管理</a></dd>
+                <dd><a href="#">微功能管理</a></dd>
+                <dd><a href="#">修改用户密码</a></dd>
+            </dl>
+
+            <dl class="source">
+                <dt>审计<img></dt>
+                <dd><a href="#">在线session</a></dd>
+                <dd><a href="#">Session历史</a></dd>
+                <dd><a href="#">登陆日志</a></dd>
+            </dl>
+
+            <div class="statistics">
+                <a>访问官网</a>
+            </div>
+        </div>
+        <!--<ul>
             <li class="left-menu-header"><a href="">Welcome {{ username }}!</a></li>
             <li class="left-menu-content"><a href="">仪表盘</a></li>
             <li class="left-menu-content"><a href="/bms/users/1/">用户管理</a></li>
@@ -99,7 +201,7 @@
             <li class="left-menu-content"><a href="">作业中心</a></li>
             <li class="left-menu-content"><a href="">审计</a></li>
             <li class="left-menu-content"><a href="">访问官网</a></li>
-        </ul>
+        </ul>-->
     </div>
     <div class="right-top-menu">
             <ul>
@@ -120,6 +222,23 @@
 <script src="{% static "js/jquery.cookie.js" %}"></script>
 <script src="{% static "dist/js/bootstrap.js" %}"></script>
 <script src="{% static "js/index.js" %}"></script>
+<script type="text/javascript">
+$(".leftsidebar_box dt").css({"background-color":"#293846"});
+$(".leftsidebar_box dt img").attr("src","{% static "img/left/select_xl01.png" %}");
+$(function(){
+	$(".leftsidebar_box dd").hide();
+	$(".leftsidebar_box dt").click(function(){
+		$(".leftsidebar_box dt").css({"background-color":"#293846"});
+		$(this).css({"background-color": "#2f4050"});
+		$(this).parent().find('dd').removeClass("menu_chioce");
+		$(".leftsidebar_box dt img").attr("src","{% static "img/left/select_xl01.png" %}");
+		$(this).parent().find('img').attr("src","{% static "img/left/select_xl.png" %}");
+		$(".menu_chioce").slideUp();
+		$(this).parent().find('dd').slideToggle();
+		$(this).parent().find('dd').addClass("menu_chioce");
+	});
+})
+</script>
 {% block js_box %}
 {% endblock %}
 </html>

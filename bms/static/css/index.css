@@ -27,8 +27,15 @@ ul{
 
 }
 .left-menu .left-menu-header{
-    padding: 33px 25px;
+    padding: 25px 25px;
 }
+/*.left-menu .left-menu-header a{*/
+    /*color: white!important;*/
+    /*font-size: 14px;*/
+/*}*/
+/*.left-menu .left-menu-header button{*/
+    /*background-color:#2f4050 ;*/
+/*}*/
 .left-menu .left-menu-content{
     display: block;
     font-weight: 600;
@@ -314,4 +321,5 @@ textarea{
     margin-top: -160px;
     overflow: hidden;
     z-index: 99999;
+    border: 5px solid rgb(236, 151, 31)
 }
